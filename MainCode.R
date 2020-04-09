@@ -20,6 +20,25 @@ DailyLow <- data.frame(Materials$XLB.Low, Communications$XLC.Low, Energy$XLE.Low
 DailyHigh <- data.frame(Materials$XLB.High, Communications$XLC.High, Energy$XLE.High, Financials$XLF.High, Industrials$XLI.High, Technology$XLK.High, ConsumerStaples$XLP.High, RealEstate$XLRE.High, Utilities$XLU.High, HealthCare$XLV.High, ConsumerDiscretionary$XLY.High)
 DailyVolume <- data.frame(Materials$XLB.Volume, Communications$XLC.Volume, Energy$XLE.Volume, Financials$XLF.Volume, Industrials$XLI.Volume, Technology$XLK.Volume, ConsumerStaples$XLP.Volume, RealEstate$XLRE.Volume, Utilities$XLU.Volume, HealthCare$XLV.Volume, ConsumerDiscretionary$XLY.Volume)
 
+#Creation of daily change and range datasets
+
+#Function for finding the difference between two dataframes
+difference <- function(input_1, input_2){
+  return (input_2-input_1)
+}
+
+#Daily change = Close - Open
+DailyChange <- difference(DailyOpen, DailyClose)
+
+#Daily range = High - Low
+DailyRange <- difference(DailyLow, DailyHigh)
+
+#Z-score function (to be used for normalizing data)
+zscore <- function( input_1 ){
+  return ((x-mean(x))/sd(x))
+}
+
+
 #Libraries needed for shiny
 library(shiny)
 library(shinythemes)
