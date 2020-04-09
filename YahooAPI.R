@@ -44,3 +44,4 @@ RealEstate <- subset(RealEstate, row.names(RealEstate) >= "2019-01-01")
 Utilities <- subset(Utilities, row.names(Utilities) >= "2019-01-01")
 HealthCare <- subset(HealthCare, row.names(HealthCare) >= "2019-01-01")
 ConsumerDiscretionary <- subset(ConsumerDiscretionary, row.names(ConsumerDiscretionary) >= "2019-01-01")
+
