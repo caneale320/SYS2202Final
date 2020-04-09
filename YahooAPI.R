@@ -34,3 +34,4 @@ RealEstate <- `df."XLRE"`
 Utilities <- `df."XLU"`
 HealthCare <- `df."XLV"`
 ConsumerDiscretionary <- `df."XLY"`
+
