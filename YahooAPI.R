@@ -31,3 +31,16 @@ RealEstate <- `df."XLRE"`
 Utilities <- `df."XLU"`
 HealthCare <- `df."XLV"`
 ConsumerDiscretionary <- `df."XLY"`
+
+#Trimming data to include only entries from January 1, 2019
+Materials <- subset(Materials, row.names(Materials) >= "2019-01-01")
+Communications <- subset(Communications, row.names(Communications) >= "2019-01-01")
+Energy <- subset(Energy, row.names(Energy) >= "2019-01-01")
+Financials <- subset(Financials, row.names(Financials) >= "2019-01-01")
+Industrials <- subset(Industrials, row.names(Industrials) >= "2019-01-01")
+Technology <- subset(Technology, row.names(Technology) >= "2019-01-01")
+ConsumerStaples <- subset(ConsumerStaples, row.names(ConsumerStaples) >= "2019-01-01")
+RealEstate <- subset(RealEstate, row.names(RealEstate) >= "2019-01-01")
+Utilities <- subset(Utilities, row.names(Utilities) >= "2019-01-01")
+HealthCare <- subset(HealthCare, row.names(HealthCare) >= "2019-01-01")
+ConsumerDiscretionary <- subset(ConsumerDiscretionary, row.names(ConsumerDiscretionary) >= "2019-01-01")
