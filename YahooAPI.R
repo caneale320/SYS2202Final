@@ -18,3 +18,16 @@ createDF <- function(symbols){
 symbolsList = c("XLB", "XLC", "XLE", "XLF", "XLI", "XLK", "XLP", "XLRE", "XLU", "XLV", "XLY")
 
 createDF(symbolsList)
+
+#Renaming DF for easier referencing
+Materials <- `df."XLB"`
+Communications <- `df."XLC"`
+Energy <- `df."XLE"`
+Financials <- `df."XLF"`
+Industrials <- `df."XLI"`
+Technology <- `df."XLK"`
+ConsumerStaples <- `df."XLP"`
+RealEstate <- `df."XLRE"`
+Utilities <- `df."XLU"`
+HealthCare <- `df."XLV"`
+ConsumerDiscretionary <- `df."XLY"`
