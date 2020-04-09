@@ -9,11 +9,14 @@ shinyServer(function(input,output) {
   
   output$FXResults <- renderPlot({
     
-    currency = Quandl(input$symbols,start_date=input$start_date , end_date=input$end_date,type = "xts")
-    currencydf = data.frame(currency)
-    simplemovingaverage=SMA(currencydf$currency,n=20)
-    plot(currencydf$currency,type="l",col="blue",xlab="Days",ylab="Price")
+    #currency = Quandl(input$symbols,start_date=input$start_date , end_date=input$end_date,type = "xts")
+    #currencydf = data.frame(currency)
+    simplemovingaverage=SMA(Materials$XLB.Close,n=20)
+   
+    plot(Materials$XLB.Close,type="l",col="blue",xlab="Days",ylab="Price")
     lines(simplemovingaverage,type = "l",col="red")
     title(main=input$symbols)
+    
+      
   })
 })
