@@ -34,6 +34,8 @@ NormalizedChange <- zscore(DailyChange)
 #Normalizing Daily Range
 NormalizedRange <- zscore(DailyRange)
 
+
+
 #Libraries needed for shiny
 library(shiny)
 library(shinythemes)
