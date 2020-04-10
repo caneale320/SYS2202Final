@@ -21,6 +21,10 @@ download <- getURL("https://data.humdata.org/hxlproxy/data/download/time_series_
 # store as df
 GlobalCovidDeaths <- read.csv (text = download)
 
+#Removing unnecessary columns from Covid Cases Data
+GlobalCovidCases <- data.frame(GlobalCovidCases$Date, GlobalCovidCases$Country.Region, GlobalCovidCases$Value)
 
+#Removing unnecessary columns from Covid Deaths Data
+GlobalCovidDeaths <- data.frame(GlobalCovidDeaths$Date, GlobalCovidDeaths$Country.Region, GlobalCovidDeaths$Value)
 
 

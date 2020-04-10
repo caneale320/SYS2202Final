@@ -28,6 +28,11 @@ zscore <- function( input_1 ){
   return ((x-mean(x))/sd(x))
 }
 
+#Normalizing Daily Change
+NormalizedChange <- zscore(DailyChange)
+
+#Normalizing Daily Range
+NormalizedRange <- zscore(DailyRange)
 
 #Libraries needed for shiny
 library(shiny)
