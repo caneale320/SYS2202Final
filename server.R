@@ -11,9 +11,10 @@ shinyServer(function(input,output) {
     
     #currency = Quandl(input$symbols,start_date=input$start_date , end_date=input$end_date,type = "xts")
     #currencydf = data.frame(currency)
-    simplemovingaverage=SMA(Materials$XLB.Close,n=20)
+    simplemovingaverage=SMA(Communications$XLC.Close,n=20)
+    
    
-    plot(Materials$XLB.Close,type="l",col="blue",xlab="Days",ylab="Price")
+    plot(Communications$XLC.Close,type="l",col="blue",xlab="Days",ylab="Price")
     lines(simplemovingaverage,type = "l",col="red")
     title(main=input$symbols)
     
