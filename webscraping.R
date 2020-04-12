@@ -87,9 +87,19 @@ head(sentiment_scores)
 
 sentiment_scores_title <- sentiment(reddit_hourly_data_no_disclaimers$Headline)
 head(sentiment_scores_title)
+
 # Average the scores across all comments
-average_sentiment_score <- sum(sentiment_scores$sentiment)/length(sentiment_scores$sentiment)
-average_sentiment_score
+#average_sentiment_score <- sum(sentiment_scores$sentiment)/length(sentiment_scores$sentiment)
+#current_time <- Sys.time()
+
+#Date range as of date written 4/11: 4/06 - 4/11
+head(marketwatch_df)
+tail(marketwatch_df)
+
+
+sentiment_df = rbind(sentiment_scores, )
+
+
 
 
 
