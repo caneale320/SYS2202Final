@@ -7,6 +7,12 @@ library("TTR")
 #Shiny Application
 shinyServer(function(input,output) {
   
+  #Obtain data for plotting
+  selectedtrends <- reactive({
+    req(input$sector)
+    validate()
+  })
+  
   output$FXResults <- renderPlot({
     
     #currency = Quandl(input$symbols,start_date=input$start_date , end_date=input$end_date,type = "xts")

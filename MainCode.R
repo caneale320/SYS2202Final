@@ -28,6 +28,19 @@ zscore <- function( input_1 ){
   return ((x-mean(x))/sd(x))
 }
 
+#Renaming Daily Change Columns
+names(DailyChange)[1] <- "Materials"
+names(DailyChange)[2] <- "Communications"
+names(DailyChange)[3] <- "Energy"
+names(DailyChange)[4] <- "Financials"
+names(DailyChange)[5] <- "Industrials"
+names(DailyChange)[6] <- "Technology"
+names(DailyChange)[7] <- "ConsumerStaples"
+names(DailyChange)[8] <- "RealEstate"
+names(DailyChange)[9] <- "Utilities"
+names(DailyChange)[10] <- "HealthCare"
+names(DailyChange)[11] <- "ConsumerDiscretionary"
+
 #Normalizing Daily Change
 NormalizedChange <- zscore(DailyChange)
 

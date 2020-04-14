@@ -6,7 +6,7 @@ ui <- fluidPage(
   
   fluidRow(
     column(3,
-           selectInput("symbols",
+           selectInput("sector",
                        h3("ETFs"),
                        choices = c(Materials = "Materials",
                                    Communications = "Communications",
