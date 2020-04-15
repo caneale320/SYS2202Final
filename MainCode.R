@@ -41,12 +41,40 @@ names(DailyChange)[9] <- "Utilities"
 names(DailyChange)[10] <- "HealthCare"
 names(DailyChange)[11] <- "ConsumerDiscretionary"
 
+#Renaming daily range columns
+names(DailyRange)[1] <- "Materials"
+names(DailyRange)[2] <- "Communications"
+names(DailyRange)[3] <- "Energy"
+names(DailyRange)[4] <- "Financials"
+names(DailyRange)[5] <- "Industrials"
+names(DailyRange)[6] <- "Technology"
+names(DailyRange)[7] <- "ConsumerStaples"
+names(DailyRange)[8] <- "RealEstate"
+names(DailyRange)[9] <- "Utilities"
+names(DailyRange)[10] <- "HealthCare"
+names(DailyRange)[11] <- "ConsumerDiscretionary"
+
+#Renaming daily volume columns
+names(DailyVolume)[1] <- "Materials"
+names(DailyVolume)[2] <- "Communications"
+names(DailyVolume)[3] <- "Energy"
+names(DailyVolume)[4] <- "Financials"
+names(DailyVolume)[5] <- "Industrials"
+names(DailyVolume)[6] <- "Technology"
+names(DailyVolume)[7] <- "ConsumerStaples"
+names(DailyVolume)[8] <- "RealEstate"
+names(DailyVolume)[9] <- "Utilities"
+names(DailyVolume)[10] <- "HealthCare"
+names(DailyVolume)[11] <- "ConsumerDiscretionary"
+
 #Normalizing Daily Change
 NormalizedChange <- zscore(DailyChange)
 
 #Normalizing Daily Range
 NormalizedRange <- zscore(DailyRange)
 
+#Normalizing Daily Volume
+NormalizedVolume <- zscore(DailyVolume)
 
 
 #Libraries needed for shiny
