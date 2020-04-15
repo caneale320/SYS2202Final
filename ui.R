@@ -21,17 +21,20 @@ ui <- fluidPage(
                                    ConsumerDiscretionary="Consumer Discretionary"),
                        selected = Materials)),
     column(3,
-           dateInput("startdate",
-                     h3("Start Date"),
-                     value="2016-05-01")),
+           varSelectInput("marketdata",
+                     h3("Market Data"),
+                     choices = c(DailyChange="Daily Change",
+                                 DailyRange="Daily Range",
+                                 DailyVolume="Daily Volume"),
+                     selected = DailyChange)),
     column(3,
            selectInput("covid",
                      h3("Covid Data"),
-                     choices = c(GlobalCases="Global Cases",
-                                 GlobalDeaths="Global Deaths",
-                                 USCases="US Cases",
-                                 USDeaths="US Deaths"),
-                     selected = GlobalCases)
+                     choices = c(GlobalCovidCases="Global Cases",
+                                 GlobalCovidDeaths="Global Deaths",
+                                 UScovidCases="US Cases",
+                                 UScovidDeaths="US Deaths"),
+                     selected = GlobalCovidCases))
   ),
   
   #Show a plot of the generated output
