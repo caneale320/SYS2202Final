@@ -10,7 +10,7 @@ shinyServer(function(input,output) {
   #Obtain data for plotting
   selectedtrends <- reactive({
     req(input$sector)
-    validate()
+    req(input$covid)
   })
   
   output$FXResults <- renderPlot({
