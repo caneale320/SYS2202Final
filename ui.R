@@ -1,3 +1,4 @@
+install.packages("shiny")
 library(shiny)
 
 #define UI

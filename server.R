@@ -1,3 +1,4 @@
+install.packages(c("ggplot", "scales", "Quandl", "TTR"))
 library(shiny)
 library(ggplot2)
 library(scales)
@@ -27,3 +28,4 @@ shinyServer(function(input,output) {
       
   })
 })
+
