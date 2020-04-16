@@ -25,7 +25,7 @@ DailyRange <- difference(DailyLow, DailyHigh)
 
 #Z-score function (to be used for normalizing data)
 zscore <- function( input_1 ){
-  return ((x-mean(x))/sd(x))
+  return ((input_1-mean(input_1))/sd(input_1))
 }
 
 #Renaming Daily Change Columns
