@@ -6,26 +6,29 @@ require(Quandl)
 library("TTR")
 
 #Shiny Application
-shinyServer(function(input,output) {
+server <- function(input,output) {
   
   #Obtain data for plotting
-  selectedtrends <- reactive({
-    req(input$sector)
-    req(input$covid)
-    req(input$marketdata)
-    
-    frame <- input$marketdata
-    
-    variable <- input$sector
+  df <- input$marketdata
+  
+  output$marketdata <- renderText({
+    paste("Market Data: ", input$marketdata)
   })
   
-  output$plot <- renderPlot({
-    simplemovingaverage=SMA(Communications$XLC.Close,n=20)
+  output$covid <- renderText({
+    paste("COVID Date: ", input$covid)
+  })
+  
+  output$sectorselection <- renderUI({
+    selectInput("sector", "ETF:", choices = colnames(df))
+  })
+  #output$plot <- renderPlot({
+   # simplemovingaverage=SMA(Communications$XLC.Close,n=20)
     
    
-    plot(x = frame$variable
+    #plot(x = frame$variable
     
       
-  })
-})
+  }
+
 
