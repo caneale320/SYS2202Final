@@ -87,3 +87,48 @@ library(readr)
 server <- function( input, output ){
   
 }
+# -----------------------------------------------------------------------
+
+# cleaning covid data
+
+# converting the number of cases (value column) to a numeric value
+GlobalCovidCases <- transform(GlobalCovidCases, Value = as.numeric(Value))
+
+# summing the number of cases (value) by day using the aggregate function
+GlobalCasesByDay <- aggregate(GlobalCovidCases$Value, by=list(Date=GlobalCovidCases$Date), FUN=sum)
+
+# creating a temporary df to store the daily changes, daily changes calculated by subtracting offset slices of the original dataframe
+temp <- (tail(GlobalCasesByDay, -1) - head(GlobalCasesByDay, -1))
+# adding a row of NA to make the temp DF the same length as the original
+temp <- rbind(c(NA, NA), temp)
+
+# assigning the tempory dataframe to the daily change column in the main covid deaths df
+GlobalCasesByDay$DailyChange <- temp$x
+
+
+# repeating the above process for US covid cases and deaths, as well as global cases. 
+GlobalCovidDeaths <- transform(GlobalCovidDeaths, Value = as.numeric(Value))
+GlobalDeathsByDay <- aggregate(GlobalCovidDeaths$Value, by=list(Date=GlobalCovidDeaths$Date), FUN=sum)
+
+temp <- (tail(GlobalDeathsByDay, -1) - head(GlobalDeathsByDay, -1))
+temp <- rbind(c(NA, NA), temp)
+
+GlobalDeathsByDay$DailyChange <- temp$x
+
+UScovidCases <- transform(UScovidCases, Value = as.numeric(Value))
+USCasesByDay <- aggregate(UScovidCases$Value, by=list(Date=UScovidCases$Date), FUN=sum)
+
+temp <- (tail(USCasesByDay, -1) - head(USCasesByDay, -1))
+temp <- rbind(c(NA, NA), temp)
+
+USCasesByDay$DailyChange <- temp$x
+
+
+UScovidDeaths <- transform(UScovidDeaths, Value = as.numeric(Value))
+USDeathsByDay <- aggregate(UScovidDeaths$Value, by=list(Date=UScovidDeaths$Date), FUN=sum)
+
+temp <- (tail(USDeathsByDay, -1) - head(USDeathsByDay, -1))
+temp <- rbind(c(NA, NA), temp)
+
+USDeathsByDay$DailyChange <- temp$x
+
