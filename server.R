@@ -33,6 +33,54 @@ newserver <- function(input, output){
     
   })
   
+  comparative <- reactive({
+    c <- switch(input$covid,
+                GC = GlobalCasesByDay$DailyChange ,
+                GD = GlobalDeathsByDay$DailyChange,
+                USC = USCasesByDay$DailyChange,
+                USD = USDeathsByDay$DailyChange )
+    
+    s1 <- switch(input$sector,
+                "Materials"=CleanMaterials$zscore.DailyChange.Materials.,
+                "Industrials"=CleanIndustrials$zscore.DailyChange.Industrials.,
+                "Financials"=CleanFinancials$zscore.DailyChange.Financials.,
+                "HealthCare"=CleanHealthCare$zscore.DailyChange.HealthCare.,
+                "Technology"=CleanTechnology$zscore.DailyChange.Technology.,
+                "Utilities"=CleanUtilities$zscore.DailyChange.Utilities.,
+                "Energy"=CleanEnergy$zscore.DailyChange.Energy.,
+                "Communications"=CleanCommunications$zscore.DailyChange.Communications.,
+                "ConsumerStaples"=CleanConsumerStaples$zscore.DailyChange.ConsumerStaples.,
+                "ConsumerDiscretionary"=CleanConsumerDiscretionary$zscore.DailyChange.ConsumerDiscretionary.)
+    
+    s2 <- switch(input$sector,
+                 "Materials"=CleanMaterials$zscore.DailyRange.Materials.,
+                 "Industrials"=CleanIndustrials$zscore.DailyRange.Industrials.,
+                 "Financials"=CleanFinancials$zscore.DailyRange.Financials.,
+                 "HealthCare"=CleanHealthCare$zscore.DailyRange.HealthCare.,
+                 "Technology"=CleanTechnology$zscore.DailyRange.Technology.,
+                 "Utilities"=CleanUtilities$zscore.DailyRange.Utilities.,
+                 "Energy"=CleanEnergy$zscore.DailyRange.Energy.,
+                 "Communications"=CleanCommunications$zscore.DailyRange.Communications.,
+                 "ConsumerStaples"=CleanConsumerStaples$zscore.DailyRange.ConsumerStaples.,
+                 "ConsumerDiscretionary"=CleanConsumerDiscretionary$zscore.DailyRange.ConsumerDiscretionary.)
+    
+    s3 <- switch(input$sector,
+                 "Materials"=CleanMaterials$zscore.DailyVolume.Materials.,
+                 "Industrials"=CleanIndustrials$zscore.DailyVolume.Industrials.,
+                 "Financials"=CleanFinancials$zscore.DailyVolume.Financials.,
+                 "HealthCare"=CleanHealthCare$zscore.DailyVolume.HealthCare.,
+                 "Technology"=CleanTechnology$zscore.DailyVolume.Technology.,
+                 "Utilities"=CleanUtilities$zscore.DailyVolume.Utilities.,
+                 "Energy"=CleanEnergy$zscore.DailyVolume.Energy.,
+                 "Communications"=CleanCommunications$zscore.DailyVolume.Communications.,
+                 "ConsumerStaples"=CleanConsumerStaples$zscore.DailyVolume.ConsumerStaples.,
+                 "ConsumerDiscretionary"=CleanConsumerDiscretionary$zscore.DailyVolume.ConsumerDiscretionary.)
+    
+    comp1data <- data.frame(c, s1)
+    
+    
+  })
+  
   # Generate a plot of the data ----
   # Also uses the inputs to build the plot label. Note that the
   # dependencies on the inputs and the data reactive expression are
@@ -44,7 +92,8 @@ newserver <- function(input, output){
   
   # Generate a summary of the data ----
   output$summary <- renderPlot({
-    
+    d <- comparative()
+    plot(d$c, d$s1)
   })
   
   # Generate an HTML table view of the data ----
