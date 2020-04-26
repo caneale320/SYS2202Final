@@ -1,6 +1,6 @@
 #Main 
 
-
+install.packages("shiny")
 #Creating working data frame from API
 
 #Market Open Dataframe
@@ -76,6 +76,20 @@ NormalizedRange <- zscore(DailyRange)
 #Normalizing Daily Volume
 NormalizedVolume <- zscore(DailyVolume)
 
+CleanMaterials <- data.frame(row.names(Materials), Materials$XLB.Adjusted, zscore(DailyChange$Materials), zscore(DailyRange$Materials), zscore(DailyVolume$Materials))
+CleanCommunications <- data.frame(row.names(Communications), Communications$XLC.Adjusted, zscore(DailyChange$Communications), zscore(DailyRange$Communications), zscore(DailyVolume$Communications))
+CleanConsumerDiscretionary <- data.frame(row.names(ConsumerDiscretionary), ConsumerDiscretionary$XLY.Adjusted, zscore(DailyChange$ConsumerDiscretionary), zscore(DailyRange$ConsumerDiscretionary), zscore(DailyVolume$ConsumerDiscretionary))
+CleanConsumerStaples <- data.frame(row.names(ConsumerStaples), ConsumerStaples$XLP.Adjusted, zscore(DailyChange$ConsumerStaples), zscore(DailyRange$ConsumerStaples), zscore(DailyVolume$ConsumerStaples))
+CleanTechnology <- data.frame(row.names(Technology), Technology$XLK.Adjusted, zscore(DailyChange$Technology), zscore(DailyRange$Technology), zscore(DailyVolume$Technology))
+CleanUtilities <- data.frame(row.names(Utilities), Utilities$XLU.Adjusted, zscore(DailyChange$Utilities), zscore(DailyRange$Utilities), zscore(DailyVolume$Utilities))
+CleanRealEstate <- data.frame(row.names(RealEstate), RealEstate$XLRE.Adjusted, zscore(DailyChange$RealEstate), zscore(DailyRange$RealEstate), zscore(DailyVolume$RealEstate))
+CleanHealthCare <- data.frame(row.names(HealthCare), HealthCare$XLV.Adjusted, zscore(DailyChange$HealthCare), zscore(DailyRange$HealthCare), zscore(DailyVolume$HealthCare))
+CleanFinancials <- data.frame(row.names(Financials), Financials$XLF.Adjusted, zscore(DailyChange$Financials), zscore(DailyRange$Financials), zscore(DailyVolume$Financials))
+CleanEnergy <- data.frame(row.names(Energy), Energy$XLE.Adjusted, zscore(DailyChange$Energy), zscore(DailyRange$Energy), zscore(DailyVolume$Energy))
+CleanIndustrials <- data.frame(row.names(Industrials), Industrials$XLI.Adjusted, zscore(DailyChange$Industrials), zscore(DailyRange$Industrials), zscore(DailyVolume$Industrials))
+
+dates <- data.frame(CleanCommunications$row.names.Communications.)
+
 
 #Libraries needed for shiny
 library(shiny)
@@ -131,4 +145,16 @@ temp <- (tail(USDeathsByDay, -1) - head(USDeathsByDay, -1))
 temp <- rbind(c(NA, NA), temp)
 
 USDeathsByDay$DailyChange <- temp$x
+
+GlobalCasesByDay <- merge(dates, GlobalCasesByDay, by.x = 1, by.y = 1, all.x = TRUE)
+GlobalCasesByDay[is.na(GlobalCasesByDay)] <- 0
+
+GlobalDeathsByDay <- merge(dates, GlobalDeathsByDay, by.x = 1, by.y = 1, all.x = TRUE)
+GlobalDeathsByDay[is.na(GlobalDeathsByDay)] <- 0
+
+USCasesByDay <- merge(dates, USCasesByDay, by.x = 1, by.y = 1, all.x = TRUE)
+USCasesByDay[is.na(USCasesByDay)] <- 0
+
+USDeathsByDay <- merge(dates, USDeathsByDay, by.x = 1, by.y = 1, all.x = TRUE)
+USDeathsByDay[is.na(USDeathsByDay)] <- 0
 

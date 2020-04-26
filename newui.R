@@ -22,7 +22,9 @@ newui <- fluidPage(
       br(),
       
       # Input: Slider for the number of observations to generate ----
-      
+      dateInput("start",
+                "Start Date:",
+                value = "2019-01-01"),
       
       selectInput("sector",
                   "Sector:",
@@ -53,3 +55,71 @@ newui <- fluidPage(
     )
   )
 )
+
+install.packages(c("ggplot", "scales", "Quandl", "TTR"))
+library(shiny)
+library(ggplot2)
+library(scales)
+require(Quandl)
+library("TTR")
+
+#Shiny Application
+server <- function(input,output) {
+  
+  #Obtain data for plotting
+  df <- input$marketdata
+  
+  output$marketdata <- renderText({
+    paste("Market Data: ", input$marketdata)
+  })
+  
+  output$covid <- renderText({
+    paste("COVID Date: ", input$covid)
+  })
+  
+  output$sectorselection <- renderUI({
+    selectInput("sector", "ETF:", choices = colnames(df))
+  })
+  #output$plot <- renderPlot({
+  # simplemovingaverage=SMA(Communications$XLC.Close,n=20)
+  
+  
+  #plot(x = frame$variable
+  
+  
+}
+
+
+library(shiny)
+
+#define UI
+ui <- fluidPage(
+  titlePanel("Title: Stock Market Data"),
+  fluidRow(
+    
+    column(3,
+           varSelectInput("marketdata",
+                          h3("Market Data"),
+                          choices = c(DailyChange="Daily Change",
+                                      DailyRange="Daily Range",
+                                      DailyVolume="Daily Volume"),
+                          selected = DailyChange)),
+    
+    column(3,
+           selectInput("covid",
+                       h3("Covid Data"),
+                       choices = c(GlobalCovidCases="Global Cases",
+                                   GlobalCovidDeaths="Global Deaths",
+                                   UScovidCases="US Cases",
+                                   UScovidDeaths="US Deaths"),
+                       selected = GlobalCovidCases)),
+    uiOutput("sectorselection")
+    
+  ),
+  
+  
+  #Show a plot of the generated output
+)
+
+
+
