@@ -20,7 +20,7 @@ token <- create_token(
 
 #search for 16000 tweets using the #coronavirus hashtag in the us
 usa <- lookup_coords("usa")
-coronavirus_tweets <- search_tweets(q="coronavirus",n=1600,geocode = usa)
+coronavirus_tweets <- search_tweets(q="coronavirus",n=16000,geocode = usa)
 marketwatch_tweets <- get_timeline("marketwatch",n=16000)
 
 
