@@ -4,30 +4,36 @@ library(httpuv) #handle http requests within r
 library(tidytext) #text mining for word processing and sentiment analysis
 library(sentimentr) #calculate text polarity sentiment at the sentence level
 library(tidyverse) #ggplot2, dplyr
+library(readr)
 
 
 #Preprocessing: Connect to Twitter API to access dataframe
 #store api keys
-api_key <- "p04GAo8bI83sitlG7eGCYYjhp"
-api_scret_key <- "XRtlRUD3cFUJmJ5NIiQ5YRp4WFLKnmoJ9N82wzITAMFABQbhYF"
+#api_key <- "p04GAo8bI83sitlG7eGCYYjhp"
+#api_scret_key <- "XRtlRUD3cFUJmJ5NIiQ5YRp4WFLKnmoJ9N82wzITAMFABQbhYF"
 
 #authenticate via web 
-token <- create_token(
-  app="Sowoko Water",
-  consumer_key=api_key,
-  consumer_secret = api_scret_key
-)
+#token <- create_token(
+#  app="Sowoko Water",
+#  consumer_key=api_key,
+#  consumer_secret = api_scret_key
+#)
 
 #search for 16000 tweets using the #coronavirus hashtag in the us
-usa <- lookup_coords("usa")
-coronavirus_tweets <- search_tweets(q="coronavirus",n=16000,geocode = usa)
-marketwatch_tweets <- get_timeline("marketwatch",n=16000)
+#usa <- lookup_coords("usa")
+#coronavirus_tweets <- search_tweets(q="coronavirus",n=16000,geocode = usa)
+#marketwatch_tweets <- get_timeline("marketwatch",n=16000)
 
 
 #Create a dataframe 
-coronavirus_df <-  data.frame(PublishedTime=coronavirus_tweets$created_at, Text=coronavirus_tweets$text)
-marketwatch_df <-  data.frame(PublishedTime=marketwatch_tweets$created_at, Text=marketwatch_tweets$text)
+#coronavirus_df <-  data.frame(PublishedTime=coronavirus_tweets$created_at, Text=coronavirus_tweets$text)
+#marketwatch_df <-  data.frame(PublishedTime=marketwatch_tweets$created_at, Text=marketwatch_tweets$text)
 
+#Saving the dataframe
+#save(coronavirus_df, file = "coronavirus_df.RData")
+load("coronavirus_df.RData")
+#save(marketwatch_df, file="marketwatch_df.RData")
+load("marketwatch_df.RData")
 
 #Processing: apply sentimentr package
 #Preprocess: text to character function
