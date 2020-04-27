@@ -90,7 +90,11 @@ newserver <- function(input, output){
     ggplot() + 
       geom_line(data=sumstock(), aes(x=dates, y=s))+ 
       geom_line(data=covid(), aes(x=dates, y=c/2000)) +
-      scale_y_continuous(sec.axis = sec_axis(~.*2000, name = "Temporary"))
+      scale_y_continuous(sec.axis = sec_axis(~.*2000, name = "Temporary")) +
+      labs(x= "Date") +
+      theme(axis.text.x = element_text(angle=45)) +
+      scale_x_date(date_breaks = "1 week")
+        
   })
   
   # Generate a summary of the data ----
