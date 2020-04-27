@@ -1,5 +1,9 @@
 install.packages("quantmod")
 install.packages("rtsdata")
+install.packages("RCurl")
+install.packages("dplyr")
+install.packages("shiny")
+
 
 # importing necessary packages for pulling data
 library(quantmod)
@@ -8,7 +12,7 @@ library(rtsdata)
 # function to create dataframes for each sector etf
 createDF <- function(symbols){
   for(item in symbols){
-    df = data.frame(ds.getSymbol.yahoo(item, from = "2019-1-1", to = Sys.Date())) # creates dataframe with data from the range [from, to]
+    df = data.frame(ds.getSymbol.yahoo(item, from = "2019-9-1", to = Sys.Date())) # creates dataframe with data from the range [from, to]
     arg_name <- deparse(substitute(item)) # Get argument name from etf/stock symbol
     var_name <- paste("df", arg_name, sep=".") # Constructs df name
     df$date = row.names(df)
@@ -39,10 +43,8 @@ ConsumerDiscretionary <- `df."XLY"`
 
 #-------------------------------------------------------------------------------------------
 
-install.packages("RCurl")
 library (RCurl)
 
-install.packages("dplyr")
 library(dplyr)
 
 # download global covid cases data
@@ -113,7 +115,6 @@ USDeathsByDay$DailyChange <- temp$x
 
 #Main 
 
-install.packages("shiny")
 #Creating working data frame from API
 
 #Market Open Dataframe
@@ -180,14 +181,6 @@ names(DailyVolume)[9] <- "Utilities"
 names(DailyVolume)[10] <- "HealthCare"
 names(DailyVolume)[11] <- "ConsumerDiscretionary"
 
-#Normalizing Daily Change
-NormalizedChange <- zscore(DailyChange)
-
-#Normalizing Daily Range
-NormalizedRange <- zscore(DailyRange)
-
-#Normalizing Daily Volume
-NormalizedVolume <- zscore(DailyVolume)
 
 CleanMaterials <- data.frame(row.names(Materials), Materials$XLB.Adjusted, zscore(DailyChange$Materials), zscore(DailyRange$Materials), zscore(DailyVolume$Materials))
 CleanCommunications <- data.frame(row.names(Communications), Communications$XLC.Adjusted, zscore(DailyChange$Communications), zscore(DailyRange$Communications), zscore(DailyVolume$Communications))
