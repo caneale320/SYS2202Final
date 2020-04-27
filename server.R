@@ -136,7 +136,10 @@ newserver <- function(input, output){
   # both tracked, and all expressions are called in the sequence
   # implied by the dependency graph.
   output$plot <- renderPlot({
-    ggplot(sumstock(),aes(x=dates, y=s)) + geom_point()+ geom_point(data=covid(), aes(x=dates, y=c))
+    ggplot() + 
+      geom_line(data=sumstock(), aes(x=dates, y=s))+ 
+      geom_line(data=covid(), aes(x=dates, y=c/2000)) +
+      scale_y_continuous(sec.axis = sec_axis(~.*2000, name = "Temporary"))
   })
   
   # Generate a summary of the data ----
