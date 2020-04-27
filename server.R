@@ -157,13 +157,15 @@ newserver <- function(input, output){
   # implied by the dependency graph.
   output$plot <- renderPlot({
     ggplot() + 
+      ggtitle("Stock Market Data and COVID Daily Changes") +
       geom_line(data=sumstock(), aes(x=dates, y=s,  color="ETF") )+ 
-      geom_line(data=covid(), aes(x=dates, y=c/400, color="COVID")) +
-      scale_y_continuous(sec.axis = sec_axis(~.*400, name = input$covid)) +
-      labs(y="ETF Close Price", x= "Date") +
-      theme(axis.text.x = element_text(angle=45)) +
+      geom_line(data=covid(), aes(x=dates, y=c/500, color="COVID")) +
+      scale_y_continuous(sec.axis = sec_axis(~.*500, name = input$covid)) +
+      labs(y="ETF Close Price", x= "Date", color="Data") +
+      theme(axis.text.x = element_text(angle=45), 
+            plot.title = element_text(size = 18, face = "bold"),
+            axis.title = element_text(face = "bold.italic")) +
       scale_x_date(date_breaks = "2 weeks", date_labels = "%b %d")
-        
   })
   
   # Generate a summary of the data ----
@@ -174,6 +176,7 @@ newserver <- function(input, output){
       ggtitle("Normalized Daily Change vs. Change in COVID Data") +
       xlab(input$covid) + 
       ylab(input$sector) + 
+      labs(color="Number of Cases") +
       theme(
         plot.title = element_text(size = 18, face = "bold"),
         axis.title = element_text(face = "bold.italic")
@@ -187,6 +190,7 @@ newserver <- function(input, output){
       ggtitle("Normalized Daily Range vs. Change in COVID Data") +  
       xlab(input$covid) + 
       ylab(input$sector) + 
+      labs(color="Number of Cases") +
       theme(
         plot.title = element_text(size = 18, face = "bold"),
         axis.title = element_text(face = "bold.italic")
@@ -199,6 +203,7 @@ newserver <- function(input, output){
       ggtitle("Normalized Daily Volume vs. Change in COVID Data")+
       xlab(input$covid) + 
       ylab(input$sector) + 
+      labs(color="Number of Cases") +
       theme(
         plot.title = element_text(size = 18, face = "bold"),
         axis.title = element_text(face = "bold.italic")
