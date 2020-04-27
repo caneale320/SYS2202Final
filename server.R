@@ -48,13 +48,14 @@ newserver <- function(input, output){
   #Trimming of data for first comparative plot which is Daily Change in Sector vs. COVID data
   comparative1 <- reactive({
     
-    
+    #Mapping radio button input into numeric vectors which will serve as y values on summary plot
     c <- switch(input$covid,
                 GlobalCases = GlobalCasesByDay$DailyChange ,
                 GlobalDeaths = GlobalDeathsByDay$DailyChange,
                 USCases = USCasesByDay$DailyChange,
                 USDeaths = USDeathsByDay$DailyChange )
     
+    #Selecting paticular variable vector from Clean Sector data frame
     s1 <- switch(input$sector,
                 "Materials"=CleanMaterials$zscore.DailyChange.Materials.,
                 "Industrials"=CleanIndustrials$zscore.DailyChange.Industrials.,
@@ -67,21 +68,26 @@ newserver <- function(input, output){
                 "ConsumerStaples"=CleanConsumerStaples$zscore.DailyChange.ConsumerStaples.,
                 "ConsumerDiscretionary"=CleanConsumerDiscretionary$zscore.DailyChange.ConsumerDiscretionary.)
     
-   
+    #Creation of data frame including covid data, x variable, and sector data, y variable
     comp1data <- data.frame( c, s1)
     
+    #Trimmed data frame to remove days where there was 0 covid cases/deaths to avoid skewing plot to the left
+    #Additionally, the summary tab provides insight to preexisting trends the comparative tab is for when covid is present
     comp1data <- subset(comp1data, c>0)
     
     
   })
   
   comparative2 <- reactive({
+    
+    #Mapping radio button input into numeric vectors which will serve as y values on summary plot
     c <- switch(input$covid,
                 GlobalCases = GlobalCasesByDay$DailyChange ,
                 GlobalDeaths = GlobalDeathsByDay$DailyChange,
                 USCases = USCasesByDay$DailyChange,
                 USDeaths = USDeathsByDay$DailyChange )
     
+    #Selecting paticular variable vector from Clean Sector data frame
     s2 <- switch(input$sector,
                  "Materials"=CleanMaterials$zscore.DailyRange.Materials.,
                  "Industrials"=CleanIndustrials$zscore.DailyRange.Industrials.,
@@ -94,6 +100,7 @@ newserver <- function(input, output){
                  "ConsumerStaples"=CleanConsumerStaples$zscore.DailyRange.ConsumerStaples.,
                  "ConsumerDiscretionary"=CleanConsumerDiscretionary$zscore.DailyRange.ConsumerDiscretionary.)
     
+    #Creation of data frame including covid data, x variable, and sector data, y variable
     comp2data <- data.frame(c, s2)
     
     comp2data <- subset(comp2data, c>0)
@@ -102,12 +109,15 @@ newserver <- function(input, output){
   })
   
   comparative3 <- reactive({
+    
+    #Mapping radio button input into numeric vectors which will serve as y values on summary plot
     c <- switch(input$covid,
                 GlobalCases = GlobalCasesByDay$DailyChange ,
                 GlobalDeaths = GlobalDeathsByDay$DailyChange,
                 USCases = USCasesByDay$DailyChange,
                 USDeaths = USDeathsByDay$DailyChange )
     
+    #Selecting paticular variable vector from Clean Sector data frame
     s3 <- switch(input$sector,
                  "Materials"=CleanMaterials$zscore.DailyVolume.Materials.,
                  "Industrials"=CleanIndustrials$zscore.DailyVolume.Industrials.,
@@ -120,31 +130,15 @@ newserver <- function(input, output){
                  "ConsumerStaples"=CleanConsumerStaples$zscore.DailyVolume.ConsumerStaples.,
                  "ConsumerDiscretionary"=CleanConsumerDiscretionary$zscore.DailyVolume.ConsumerDiscretionary.)
     
+    #Creation of data frame including covid data, x variable, and sector data, y variable
     comp3data <- data.frame(c, s3)
+    
     
     comp3data <- subset(comp3data, c>0)
     
   })
   
-  plotlabels <- reactive({
-    cl <- switch(input$covid,
-                GlobalCases = "Daily Global Cases" ,
-                GlobalDeaths = "Daily Change in Global Deaths",
-                USCases = "Daily US Cases",
-                USDeaths = "Daily Change in US Deaths") 
-    
-    sl <- switch(input$sector,
-                 "Materials"= "Materials Z-Score",
-                 "Industrials"= "Industrials Z-Score",
-                 "Financials"= "Financials Z-Score",
-                 "HealthCare"= "Healthcare Z-Score",
-                 "Technology"= "Technology Z-Score",
-                 "Utilities"= "Utilities Z-Score",
-                 "Energy"= "Energy Z-Score",
-                 "Communications"= "Communications Z-Score",
-                 "ConsumerStaples"= "Consumer Staples Z-Score",
-                 "ConsumerDiscretionary"= "Consumer Discretionary Z-Score")
-  })
+ 
   # Generate a plot of the data ----
   # Also uses the inputs to build the plot label. Note that the
   # dependencies on the inputs and the data reactive expression are

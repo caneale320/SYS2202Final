@@ -12,7 +12,7 @@ newui <- fluidPage(
     sidebarPanel(
       
       # Input: Select the random distribution type ----
-      radioButtons("covid", "COVID Data:",
+      radioButtons("covid", "Change in COVID Data:",
                    c("Global Cases" = "GlobalCases",
                      "Global Deaths" = "GlobalDeaths",
                      "US Cases" = "USCases",
