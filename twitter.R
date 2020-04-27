@@ -11,12 +11,6 @@ library(readr)
 #store api keys
 #api_key <- "p04GAo8bI83sitlG7eGCYYjhp"
 #api_scret_key <- "XRtlRUD3cFUJmJ5NIiQ5YRp4WFLKnmoJ9N82wzITAMFABQbhYF"
-<<<<<<< HEAD
-
-stuart_api_key <- "YDx7cLZbnaunlmkpF2jraTDWf"
-stuart_api_secretkey <- "xZN4cBcTtMdGU5cTDMzaYP2Aoj3QDskeKPSmEaF4tLTAAYUv"
-=======
->>>>>>> 6ad4273896cce1244edcdd6915c462e8d1831815
 
 #authenticate via web 
 #token <- create_token(
