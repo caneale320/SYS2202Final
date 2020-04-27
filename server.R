@@ -87,6 +87,7 @@ newserver <- function(input, output){
     
   })
   
+  #Trimming of data for first comparative plot which is Daily Range in Sector vs. COVID data
   comparative2 <- reactive({
     
     #Mapping radio button input into numeric vectors which will serve as y values on summary plot
@@ -113,11 +114,14 @@ newserver <- function(input, output){
     #Creation of data frame including covid data, x variable, and sector data, y variable
     comp2data <- data.frame(c, s2)
     
+    #Trimmed data frame to remove days where there was 0 covid cases/deaths to avoid skewing plot to the left
+    #Additionally, the summary tab provides insight to preexisting trends the comparative tab is for when covid is present
     comp2data <- subset(comp2data, c>0)
     
     
   })
   
+  #Trimming of data for first comparative plot which is Daily Volume in Sector vs. COVID data
   comparative3 <- reactive({
     
     #Mapping radio button input into numeric vectors which will serve as y values on summary plot
@@ -144,7 +148,8 @@ newserver <- function(input, output){
     #Creation of data frame including covid data, x variable, and sector data, y variable
     comp3data <- data.frame(c, s3)
     
-    
+    #Trimmed data frame to remove days where there was 0 covid cases/deaths to avoid skewing plot to the left
+    #Additionally, the summary tab provides insight to preexisting trends the comparative tab is for when covid is present
     comp3data <- subset(comp3data, c>0)
     
   })

@@ -4,15 +4,19 @@ library(httpuv) #handle http requests within r
 library(tidytext) #text mining for word processing and sentiment analysis
 library(sentimentr) #calculate text polarity sentiment at the sentence level
 library(tidyverse) #ggplot2, dplyr
+library(readr)
 
 
 #Preprocessing: Connect to Twitter API to access dataframe
 #store api keys
 #api_key <- "p04GAo8bI83sitlG7eGCYYjhp"
 #api_scret_key <- "XRtlRUD3cFUJmJ5NIiQ5YRp4WFLKnmoJ9N82wzITAMFABQbhYF"
+<<<<<<< HEAD
 
 stuart_api_key <- "YDx7cLZbnaunlmkpF2jraTDWf"
 stuart_api_secretkey <- "xZN4cBcTtMdGU5cTDMzaYP2Aoj3QDskeKPSmEaF4tLTAAYUv"
+=======
+>>>>>>> 6ad4273896cce1244edcdd6915c462e8d1831815
 
 #authenticate via web 
 #token <- create_token(
@@ -21,22 +25,22 @@ stuart_api_secretkey <- "xZN4cBcTtMdGU5cTDMzaYP2Aoj3QDskeKPSmEaF4tLTAAYUv"
 #  consumer_secret = api_scret_key
 #)
 
-token <- create_token(
-  app= "SYSFinal",
-  consumer_key = stuart_api_key,
-  consumer_secret = stuart_api_secretkey
-)
 
 #search for 16000 tweets using the #coronavirus hashtag in the us
-usa <- lookup_coords("usa")
-coronavirus_tweets <- search_tweets(q="coronavirus",n=16000,geocode = usa)
-marketwatch_tweets <- get_timeline("marketwatch",n=16000)
+#usa <- lookup_coords("usa")
+#coronavirus_tweets <- search_tweets(q="coronavirus",n=16000,geocode = usa)
+#marketwatch_tweets <- get_timeline("marketwatch",n=16000)
 
 
 #Create a dataframe 
-coronavirus_df <-  data.frame(PublishedTime=coronavirus_tweets$created_at, Text=coronavirus_tweets$text)
-marketwatch_df <-  data.frame(PublishedTime=marketwatch_tweets$created_at, Text=marketwatch_tweets$text)
+#coronavirus_df <-  data.frame(PublishedTime=coronavirus_tweets$created_at, Text=coronavirus_tweets$text)
+#marketwatch_df <-  data.frame(PublishedTime=marketwatch_tweets$created_at, Text=marketwatch_tweets$text)
 
+#Saving the dataframe
+#save(coronavirus_df, file = "coronavirus_df.RData")
+load("coronavirus_df.RData")
+#save(marketwatch_df, file="marketwatch_df.RData")
+load("marketwatch_df.RData")
 
 #Processing: apply sentimentr package
 #Preprocess: text to character function
@@ -70,7 +74,10 @@ marketwatch_average_sentiment <- marketwatch_sentiment_scores[,.(sentiment_avera
 marketwatch_average_sentiment <- cbind(marketwatch_average_sentiment,PublishedTime=marketwatch_df$PublishedTime)
 coronavirus_average_sentiment <- cbind(coronavirus_average_sentiment,PublishedTime=coronavirus_df$PublishedTime)
 
-#head(coronavirus_average_sentiment)
+coronavirus_average_sentiment$sentiment_averaged <- as.double(coronavirus_average_sentiment$sentiment_averaged)
+
+
+rlan#head(coronavirus_average_sentiment)
 #tail(coronavirus_average_sentiment)
 
 #head(marketwatch_average_sentiment)
@@ -78,9 +85,10 @@ coronavirus_average_sentiment <- cbind(coronavirus_average_sentiment,PublishedTi
 
 #Plot 
 ggplot(coronavirus_average_sentiment) + 
-  geom_smooth(aes(PublishedTime,sentiment_averaged)) 
- ggplot(marketwatch_average_sentiment) + 
-  geom_smooth(aes(PublishedTime,sentiment_averaged))
+  geom_smooth(aes(x=PublishedTime,y=sentiment_averaged), method = "loess")
+
+ggplot(data=marketwatch_average_sentiment, aes(marketwatch_average_sentiment$PublishedTime, marketwatch_average_sentiment$sentiment_averaged)) +
+  geom_smooth(method = "loess")
 
 
 
