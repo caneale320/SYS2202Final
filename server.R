@@ -7,18 +7,25 @@ newserver <- function(input, output){
   #Creation of date dataframe which will be referenced in the summary tab and begins on January 1, 2019
   dates <- CleanCommunications$row.names.Communications.
   
-  
+  #Creation of COVID data which is to be used on summary tab
   covid <- reactive({
+    
+    #Mapping radio button input into numeric vectors which will serve as y values on summary plot
     c <- switch(input$covid,
                    GlobalCases = GlobalCasesByDay$DailyChange ,
                    GlobalDeaths = GlobalDeathsByDay$DailyChange,
                    USCases = USCasesByDay$DailyChange,
                    USDeaths = USDeathsByDay$DailyChange )
+    
+    #Data frame which includes full time period and COVID data
     coviddata <- data.frame(dates, c)
   })
   
-  
+  #Creation of Sector data which will be used on the summary tab
   sumstock <- reactive({
+    
+    #Mapping sector user input into numerical vectors which will then be used as y values on the summary tab
+    #In this case we chose to use Adjuested Close values on the plot, however it is possible to use Open or Average the two
     s <- switch(input$sector,
                 "Materials"=CleanMaterials$Materials.XLB.Adjusted,
                 "Industrials"=CleanIndustrials$Industrials.XLI.Adjusted,
@@ -31,11 +38,17 @@ newserver <- function(input, output){
                 "ConsumerStaples"=CleanConsumerStaples$ConsumerStaples.XLP.Adjusted,
                 "ConsumerDiscretionary"=CleanConsumerDiscretionary$ConsumerDiscretionary.XLY.Adjusted)
     
+    #Data frame which includes date and stock sector data
     sumdata <- data.frame(dates, s)
     
   })
   
+  #Comparative Tab
+  
+  #Trimming of data for first comparative plot which is Daily Change in Sector vs. COVID data
   comparative1 <- reactive({
+    
+    
     c <- switch(input$covid,
                 GlobalCases = GlobalCasesByDay$DailyChange ,
                 GlobalDeaths = GlobalDeathsByDay$DailyChange,
