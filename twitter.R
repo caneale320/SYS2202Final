@@ -67,7 +67,7 @@ tail(coronavirus_average_sentiment)
 head(marketwatch_average_sentiment)
 tail(marketwatch_average_sentiment)
 
-#Plot trend from 4/06 - 4/11 (A trading week)
+#Plot 
 ggplot(coronavirus_average_sentiment) + 
   geom_smooth(aes(PublishedTime,sentiment_averaged)) 
  ggplot(marketwatch_average_sentiment) + 

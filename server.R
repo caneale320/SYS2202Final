@@ -199,6 +199,16 @@ newserver <- function(input, output){
     
   })
   
+  output$sentimentb <- renderPlot({
+    ggplot(coronavirus_average_sentiment) + 
+      geom_smooth(aes(PublishedTime,sentiment_averaged)) +
+      ggtitle("Sentiment of coronavirus tweets") + 
+      theme(
+        plot.title = element_text(size = 18, face = "bold"),
+        axis.title = element_text(face = "bold.italic")
+      )
+  })
+  
 }
 
 
