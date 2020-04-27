@@ -39,33 +39,33 @@ coronavirus_sentiment_scores <- sentiment(coronavirus_df$Text)
 marketwatch_sentiment_scores <- sentiment(marketwatch_df$Text)
 
 #View the result
-View(coronavirus_sentiment_scores)
-View(marketwatch_sentiment_scores)
+#View(coronavirus_sentiment_scores)
+#View(marketwatch_sentiment_scores)
 
 #Date range as of date written 4/11: 4/06 - 4/11
-head(marketwatch_df)
-tail(marketwatch_df)
+#head(marketwatch_df)
+#tail(marketwatch_df)
 
-head(coronavirus_df)
-tail(coronavirus_df)
+#head(coronavirus_df)
+#tail(coronavirus_df)
 
-View(coronavirus_sentiment_scores)
+#View(coronavirus_sentiment_scores)
 
 #Create a dataframe of the average sentiment score of each tweet
 coronavirus_average_sentiment <- coronavirus_sentiment_scores[,.(sentiment_averaged = sum(sentiment)),by=element_id]
 marketwatch_average_sentiment <- marketwatch_sentiment_scores[,.(sentiment_averaged = sum(sentiment)),by=element_id]
 
-View(marketwatch_df)
+#View(marketwatch_df)
 
 #Add Datetime of each tweet 
 marketwatch_average_sentiment <- cbind(marketwatch_average_sentiment,PublishedTime=marketwatch_df$PublishedTime)
 coronavirus_average_sentiment <- cbind(coronavirus_average_sentiment,PublishedTime=coronavirus_df$PublishedTime)
 
-head(coronavirus_average_sentiment)
-tail(coronavirus_average_sentiment)
+#head(coronavirus_average_sentiment)
+#tail(coronavirus_average_sentiment)
 
-head(marketwatch_average_sentiment)
-tail(marketwatch_average_sentiment)
+#head(marketwatch_average_sentiment)
+#tail(marketwatch_average_sentiment)
 
 #Plot 
 ggplot(coronavirus_average_sentiment) + 
