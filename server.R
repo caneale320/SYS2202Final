@@ -5,7 +5,7 @@ newserver <- function(input, output){
   # Reactive expression to generate the requested distribution ----
   # This is called whenever the inputs change. The output functions
   # defined below then use the value computed from this expression
-  dates <- CleanCommunications$row.names.Communications.
+  dates <- as.Date(CleanCommunications$row.names.Communications.)
   covid <- reactive({
     c <- switch(input$covid,
                    GlobalCases = GlobalCasesByDay$DailyChange ,
@@ -113,9 +113,9 @@ newserver <- function(input, output){
   
   plotlabels <- reactive({
     cl <- switch(input$covid,
-                GlobalCases = "Daily Global Cases" ,
+                GlobalCases = "Daily Change in Global Cases" ,
                 GlobalDeaths = "Daily Change in Global Deaths",
-                USCases = "Daily US Cases",
+                USCases = "Daily Change in US Cases",
                 USDeaths = "Daily Change in US Deaths") 
     
     sl <- switch(input$sector,
@@ -137,12 +137,12 @@ newserver <- function(input, output){
   # implied by the dependency graph.
   output$plot <- renderPlot({
     ggplot() + 
-      geom_line(data=sumstock(), aes(x=dates, y=s))+ 
-      geom_line(data=covid(), aes(x=dates, y=c/2000)) +
-      scale_y_continuous(sec.axis = sec_axis(~.*2000, name = "Temporary")) +
-      labs(x= "Date") +
+      geom_line(data=sumstock(), aes(x=dates, y=s,  color="ETF") )+ 
+      geom_line(data=covid(), aes(x=dates, y=c/400, color="COVID")) +
+      scale_y_continuous(sec.axis = sec_axis(~.*400, name = input$covid)) +
+      labs(y="ETF Close Price", x= "Date") +
       theme(axis.text.x = element_text(angle=45)) +
-      scale_x_date(date_breaks = "1 week")
+      scale_x_date(date_breaks = "2 weeks", date_labels = "%b %d")
         
   })
   
