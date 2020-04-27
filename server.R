@@ -1,11 +1,13 @@
 library(shiny)
 library(ggplot2)
 
+#Defining Server for Shiny Application
 newserver <- function(input, output){
-  # Reactive expression to generate the requested distribution ----
-  # This is called whenever the inputs change. The output functions
-  # defined below then use the value computed from this expression
+  
+  #Creation of date dataframe which will be referenced in the summary tab and begins on January 1, 2019
   dates <- CleanCommunications$row.names.Communications.
+  
+  
   covid <- reactive({
     c <- switch(input$covid,
                    GlobalCases = GlobalCasesByDay$DailyChange ,
