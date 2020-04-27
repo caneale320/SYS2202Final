@@ -8,10 +8,10 @@ newserver <- function(input, output){
   dates <- CleanCommunications$row.names.Communications.
   covid <- reactive({
     c <- switch(input$covid,
-                   GC = GlobalCasesByDay$DailyChange ,
-                   GD = GlobalDeathsByDay$DailyChange,
-                   USC = USCasesByDay$DailyChange,
-                   USD = USDeathsByDay$DailyChange )
+                   GlobalCases = GlobalCasesByDay$DailyChange ,
+                   GlobalDeaths = GlobalDeathsByDay$DailyChange,
+                   USCases = USCasesByDay$DailyChange,
+                   USDeaths = USDeathsByDay$DailyChange )
     coviddata <- data.frame(dates, c)
   })
   
@@ -33,12 +33,12 @@ newserver <- function(input, output){
     
   })
   
-  comparative <- reactive({
+  comparative1 <- reactive({
     c <- switch(input$covid,
-                GC = GlobalCasesByDay$DailyChange ,
-                GD = GlobalDeathsByDay$DailyChange,
-                USC = USCasesByDay$DailyChange,
-                USD = USDeathsByDay$DailyChange )
+                GlobalCases = GlobalCasesByDay$DailyChange ,
+                GlobalDeaths = GlobalDeathsByDay$DailyChange,
+                USCases = USCasesByDay$DailyChange,
+                USDeaths = USDeathsByDay$DailyChange )
     
     s1 <- switch(input$sector,
                 "Materials"=CleanMaterials$zscore.DailyChange.Materials.,
@@ -52,6 +52,21 @@ newserver <- function(input, output){
                 "ConsumerStaples"=CleanConsumerStaples$zscore.DailyChange.ConsumerStaples.,
                 "ConsumerDiscretionary"=CleanConsumerDiscretionary$zscore.DailyChange.ConsumerDiscretionary.)
     
+   
+    comp1data <- data.frame( c, s1)
+    
+    comp1data <- subset(comp1data, c>0)
+    
+    
+  })
+  
+  comparative2 <- reactive({
+    c <- switch(input$covid,
+                GlobalCases = GlobalCasesByDay$DailyChange ,
+                GlobalDeaths = GlobalDeathsByDay$DailyChange,
+                USCases = USCasesByDay$DailyChange,
+                USDeaths = USDeathsByDay$DailyChange )
+    
     s2 <- switch(input$sector,
                  "Materials"=CleanMaterials$zscore.DailyRange.Materials.,
                  "Industrials"=CleanIndustrials$zscore.DailyRange.Industrials.,
@@ -63,6 +78,20 @@ newserver <- function(input, output){
                  "Communications"=CleanCommunications$zscore.DailyRange.Communications.,
                  "ConsumerStaples"=CleanConsumerStaples$zscore.DailyRange.ConsumerStaples.,
                  "ConsumerDiscretionary"=CleanConsumerDiscretionary$zscore.DailyRange.ConsumerDiscretionary.)
+    
+    comp2data <- data.frame(c, s2)
+    
+    comp2data <- subset(comp2data, c>0)
+    
+    
+  })
+  
+  comparative3 <- reactive({
+    c <- switch(input$covid,
+                GlobalCases = GlobalCasesByDay$DailyChange ,
+                GlobalDeaths = GlobalDeathsByDay$DailyChange,
+                USCases = USCasesByDay$DailyChange,
+                USDeaths = USDeathsByDay$DailyChange )
     
     s3 <- switch(input$sector,
                  "Materials"=CleanMaterials$zscore.DailyVolume.Materials.,
@@ -76,11 +105,31 @@ newserver <- function(input, output){
                  "ConsumerStaples"=CleanConsumerStaples$zscore.DailyVolume.ConsumerStaples.,
                  "ConsumerDiscretionary"=CleanConsumerDiscretionary$zscore.DailyVolume.ConsumerDiscretionary.)
     
-    comp1data <- data.frame(c, s1)
+    comp3data <- data.frame(c, s3)
     
+    comp3data <- subset(comp3data, c>0)
     
   })
   
+  plotlabels <- reactive({
+    cl <- switch(input$covid,
+                GlobalCases = "Daily Global Cases" ,
+                GlobalDeaths = "Daily Change in Global Deaths",
+                USCases = "Daily US Cases",
+                USDeaths = "Daily Change in US Deaths") 
+    
+    sl <- switch(input$sector,
+                 "Materials"= "Materials Z-Score",
+                 "Industrials"= "Industrials Z-Score",
+                 "Financials"= "Financials Z-Score",
+                 "HealthCare"= "Healthcare Z-Score",
+                 "Technology"= "Technology Z-Score",
+                 "Utilities"= "Utilities Z-Score",
+                 "Energy"= "Energy Z-Score",
+                 "Communications"= "Communications Z-Score",
+                 "ConsumerStaples"= "Consumer Staples Z-Score",
+                 "ConsumerDiscretionary"= "Consumer Discretionary Z-Score")
+  })
   # Generate a plot of the data ----
   # Also uses the inputs to build the plot label. Note that the
   # dependencies on the inputs and the data reactive expression are
@@ -98,9 +147,43 @@ newserver <- function(input, output){
   })
   
   # Generate a summary of the data ----
-  output$summary <- renderPlot({
-    d <- comparative()
-    plot(d$c, d$s1)
+  output$comparativea <- renderPlot({
+    ggplot(data=comparative1(), aes(x=c, y=s1)) +
+      geom_point(aes(colour = c)) +
+      geom_smooth(method="loess") + 
+      ggtitle("Normalized Daily Change vs. Change in COVID Data") +
+      xlab(input$covid) + 
+      ylab(input$sector) + 
+      theme(
+        plot.title = element_text(size = 18, face = "bold"),
+        axis.title = element_text(face = "bold.italic")
+      )
+  
+  })
+  
+  output$comparativeb <- renderPlot({
+    ggplot(data=comparative2(), aes(x=c, y=s2)) +
+      geom_point(aes(colour = c))+geom_smooth(method="loess") + 
+      ggtitle("Normalized Daily Range vs. Change in COVID Data") +  
+      xlab(input$covid) + 
+      ylab(input$sector) + 
+      theme(
+        plot.title = element_text(size = 18, face = "bold"),
+        axis.title = element_text(face = "bold.italic")
+      )
+  })
+  
+  output$comparativec <- renderPlot({
+    ggplot(data=comparative3(), aes(x=c, y=s3)) +
+      geom_point(aes(colour = c))+geom_smooth(method="loess")+ 
+      ggtitle("Normalized Daily Volume vs. Change in COVID Data")+
+      xlab(input$covid) + 
+      ylab(input$sector) + 
+      theme(
+        plot.title = element_text(size = 18, face = "bold"),
+        axis.title = element_text(face = "bold.italic")
+      )
+  
   })
   
   # Generate an HTML table view of the data ----

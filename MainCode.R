@@ -14,7 +14,7 @@ DailyVolume <- data.frame(Materials$XLB.Volume, Communications$XLC.Volume, Energ
 
 #Function for finding the difference between two dataframes
 difference <- function(input_1, input_2){
-  return (input_2-input_1)
+  return (as.numeric(as.character(input_2))-as.numeric(as.character(input_1)))
 }
 
 #Daily change = Close - Open
