@@ -13,10 +13,10 @@ newui <- fluidPage(
       
       # Input: Select the random distribution type ----
       radioButtons("covid", "COVID Data:",
-                   c("Global Cases" = "GC",
-                     "Global Deaths" = "GD",
-                     "US Cases" = "USC",
-                     "US Deaths" = "USD")),
+                   c("Global Cases" = "GlobalCases",
+                     "Global Deaths" = "GlobalDeaths",
+                     "US Cases" = "USCases",
+                     "US Deaths" = "USDeaths")),
       
       # br() element to introduce extra vertical spacing ----
       br(),
@@ -46,7 +46,9 @@ newui <- fluidPage(
       # Output: Tabset w/ plot, summary, and table ----
       tabsetPanel(type = "tabs",
                   tabPanel("Summary", plotOutput("plot")),
-                  tabPanel("Comparative", plotOutput("summary")),
+                  tabPanel("Comparative", plotOutput("comparativea", width = 600, height = 300),
+                           plotOutput("comparativeb", width = 600, height = 300),
+                           plotOutput("comparativec", width = 600, height = 300)),
                   tabPanel("Sentiment", plotOutput("table"))
       )
       
