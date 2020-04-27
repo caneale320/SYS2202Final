@@ -46,8 +46,8 @@ newui <- fluidPage(
       # Output: Tabset w/ plot, summary, and table ----
       tabsetPanel(type = "tabs",
                   tabPanel("Summary", plotOutput("plot")),
-                  tabPanel("Comparative", verbatimTextOutput("summary")),
-                  tabPanel("Sentiment", tableOutput("table"))
+                  tabPanel("Comparative", plotOutput("summary")),
+                  tabPanel("Sentiment", plotOutput("table"))
       )
       
     )
