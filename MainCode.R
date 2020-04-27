@@ -1,6 +1,6 @@
 #Main 
 
-install.packages("shiny")
+#install.packages("shiny")
 #Creating working data frame from API
 
 #Market Open Dataframe

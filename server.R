@@ -187,8 +187,26 @@ newserver <- function(input, output){
   })
   
   # Generate an HTML table view of the data ----
-  output$table <- renderTable({
+  output$sentiment <- renderPlot({
+    ggplot(marketwatch_average_sentiment) + 
+      geom_smooth(aes(PublishedTime,sentiment_averaged)) + 
+      ggtitle("Sentiment of @MarketWatch on Twitter") + 
+      theme(
+        plot.title = element_text(size = 18, face = "bold"),
+        axis.title = element_text(face = "bold.italic")
+      )
     
+    
+  })
+  
+  output$sentimentb <- renderPlot({
+    ggplot(coronavirus_average_sentiment) + 
+      geom_smooth(aes(PublishedTime,sentiment_averaged)) +
+      ggtitle("Sentiment of coronavirus tweets") + 
+      theme(
+        plot.title = element_text(size = 18, face = "bold"),
+        axis.title = element_text(face = "bold.italic")
+      )
   })
   
 }
