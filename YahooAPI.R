@@ -8,7 +8,7 @@ library(rtsdata)
 # function to create dataframes for each sector etf
 createDF <- function(symbols){
   for(item in symbols){
-    df = data.frame(ds.getSymbol.yahoo(item, from = "2019-1-1", to = Sys.Date())) # creates dataframe with data from the range [from, to]
+    df = data.frame(ds.getSymbol.yahoo(item, from = "2019-8-1", to = Sys.Date())) # creates dataframe with data from the range [from, to]
     arg_name <- deparse(substitute(item)) # Get argument name from etf/stock symbol
     var_name <- paste("df", arg_name, sep=".") # Constructs df name
     df$date = row.names(df)
