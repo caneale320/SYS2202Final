@@ -8,14 +8,23 @@ library(tidyverse) #ggplot2, dplyr
 
 #Preprocessing: Connect to Twitter API to access dataframe
 #store api keys
-api_key <- "p04GAo8bI83sitlG7eGCYYjhp"
-api_scret_key <- "XRtlRUD3cFUJmJ5NIiQ5YRp4WFLKnmoJ9N82wzITAMFABQbhYF"
+#api_key <- "p04GAo8bI83sitlG7eGCYYjhp"
+#api_scret_key <- "XRtlRUD3cFUJmJ5NIiQ5YRp4WFLKnmoJ9N82wzITAMFABQbhYF"
+
+stuart_api_key <- "YDx7cLZbnaunlmkpF2jraTDWf"
+stuart_api_secretkey <- "xZN4cBcTtMdGU5cTDMzaYP2Aoj3QDskeKPSmEaF4tLTAAYUv"
 
 #authenticate via web 
+#token <- create_token(
+#  app="Sowoko Water",
+#  consumer_key=api_key,
+#  consumer_secret = api_scret_key
+#)
+
 token <- create_token(
-  app="Sowoko Water",
-  consumer_key=api_key,
-  consumer_secret = api_scret_key
+  app= "SYSFinal",
+  consumer_key = stuart_api_key,
+  consumer_secret = stuart_api_secretkey
 )
 
 #search for 16000 tweets using the #coronavirus hashtag in the us
