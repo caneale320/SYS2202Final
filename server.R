@@ -3,11 +3,18 @@ library(ggplot2)
 
 #Defining Server for Shiny Application
 newserver <- function(input, output){
+
   
   #Creation of date dataframe which will be referenced in the summary tab and begins on January 1, 2019
   dates <- CleanCommunications$row.names.Communications.
   
   #Creation of COVID data which is to be used on summary tab
+
+  # Reactive expression to generate the requested distribution ----
+  # This is called whenever the inputs change. The output functions
+  # defined below then use the value computed from this expression
+  dates <- as.Date(CleanCommunications$row.names.Communications.)
+
   covid <- reactive({
     
     #Mapping radio button input into numeric vectors which will serve as y values on summary plot
@@ -34,6 +41,7 @@ newserver <- function(input, output){
                 "Technology"=CleanTechnology$Technology.XLK.Adjusted,
                 "Utilities"=CleanUtilities$Utilities.XLU.Adjusted,
                 "Energy"=CleanEnergy$Energy.XLE.Adjusted,
+                "RealEstate"=CleanRealEstate$RealEstate.XLRE.Adjusted,
                 "Communications"=CleanCommunications$Communications.XLC.Adjusted,
                 "ConsumerStaples"=CleanConsumerStaples$ConsumerStaples.XLP.Adjusted,
                 "ConsumerDiscretionary"=CleanConsumerDiscretionary$ConsumerDiscretionary.XLY.Adjusted)
@@ -64,6 +72,7 @@ newserver <- function(input, output){
                 "Technology"=CleanTechnology$zscore.DailyChange.Technology.,
                 "Utilities"=CleanUtilities$zscore.DailyChange.Utilities.,
                 "Energy"=CleanEnergy$zscore.DailyChange.Energy.,
+                "RealEstate"=CleanRealEstate$zscore.DailyChange.RealEstate.,
                 "Communications"=CleanCommunications$zscore.DailyChange.Communications.,
                 "ConsumerStaples"=CleanConsumerStaples$zscore.DailyChange.ConsumerStaples.,
                 "ConsumerDiscretionary"=CleanConsumerDiscretionary$zscore.DailyChange.ConsumerDiscretionary.)
@@ -96,6 +105,7 @@ newserver <- function(input, output){
                  "Technology"=CleanTechnology$zscore.DailyRange.Technology.,
                  "Utilities"=CleanUtilities$zscore.DailyRange.Utilities.,
                  "Energy"=CleanEnergy$zscore.DailyRange.Energy.,
+                 "RealEstate"=CleanRealEstate$zscore.DailyRange.RealEstate.,
                  "Communications"=CleanCommunications$zscore.DailyRange.Communications.,
                  "ConsumerStaples"=CleanConsumerStaples$zscore.DailyRange.ConsumerStaples.,
                  "ConsumerDiscretionary"=CleanConsumerDiscretionary$zscore.DailyRange.ConsumerDiscretionary.)
@@ -126,6 +136,7 @@ newserver <- function(input, output){
                  "Technology"=CleanTechnology$zscore.DailyVolume.Technology.,
                  "Utilities"=CleanUtilities$zscore.DailyVolume.Utilities.,
                  "Energy"=CleanEnergy$zscore.DailyVolume.Energy.,
+                 "RealEstate"=CleanRealEstate$zscore.DailyVolume.RealEstate.,
                  "Communications"=CleanCommunications$zscore.DailyVolume.Communications.,
                  "ConsumerStaples"=CleanConsumerStaples$zscore.DailyVolume.ConsumerStaples.,
                  "ConsumerDiscretionary"=CleanConsumerDiscretionary$zscore.DailyVolume.ConsumerDiscretionary.)
@@ -138,7 +149,7 @@ newserver <- function(input, output){
     
   })
   
- 
+
   # Generate a plot of the data ----
   # Also uses the inputs to build the plot label. Note that the
   # dependencies on the inputs and the data reactive expression are
@@ -146,12 +157,12 @@ newserver <- function(input, output){
   # implied by the dependency graph.
   output$plot <- renderPlot({
     ggplot() + 
-      geom_line(data=sumstock(), aes(x=dates, y=s))+ 
-      geom_line(data=covid(), aes(x=dates, y=c/2000)) +
-      scale_y_continuous(sec.axis = sec_axis(~.*2000, name = "Temporary")) +
-      labs(x= "Date") +
+      geom_line(data=sumstock(), aes(x=dates, y=s,  color="ETF") )+ 
+      geom_line(data=covid(), aes(x=dates, y=c/400, color="COVID")) +
+      scale_y_continuous(sec.axis = sec_axis(~.*400, name = input$covid)) +
+      labs(y="ETF Close Price", x= "Date") +
       theme(axis.text.x = element_text(angle=45)) +
-      scale_x_date(date_breaks = "1 week")
+      scale_x_date(date_breaks = "2 weeks", date_labels = "%b %d")
         
   })
   
@@ -206,6 +217,16 @@ newserver <- function(input, output){
       )
     
     
+  })
+  
+  output$sentimentb <- renderPlot({
+    ggplot(coronavirus_average_sentiment) + 
+      geom_smooth(aes(PublishedTime,sentiment_averaged)) +
+      ggtitle("Sentiment of coronavirus tweets") + 
+      theme(
+        plot.title = element_text(size = 18, face = "bold"),
+        axis.title = element_text(face = "bold.italic")
+      )
   })
   
 }

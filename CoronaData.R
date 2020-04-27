@@ -1,7 +1,7 @@
-install.packages("RCurl")
+#install.packages("RCurl")
 library (RCurl)
 
-install.packages("dplyr")
+#install.packages("dplyr")
 library(dplyr)
 
 # download global covid cases data
