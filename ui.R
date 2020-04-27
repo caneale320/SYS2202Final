@@ -45,7 +45,9 @@ newui <- fluidPage(
       
       # Output: Tabset w/ plot, summary, and table ----
       tabsetPanel(type = "tabs",
-                  tabPanel("Summary", plotOutput("plot")),
+                  tabPanel("Summary",
+                           br(),
+                           plotOutput("plot")),
                   tabPanel("Comparative",
                            br(),
                            plotOutput("comparativea", width = 600, height = 300),
@@ -53,7 +55,10 @@ newui <- fluidPage(
                            plotOutput("comparativeb", width = 600, height = 300),
                            br(),
                            plotOutput("comparativec", width = 600, height = 300)),
-                  tabPanel("Sentiment", plotOutput("sentiment", width = 600, height = 300),
+                  tabPanel("Sentiment",
+                           br(),
+                           plotOutput("sentiment", width = 600, height = 300),
+                           br(),
                            plotOutput("sentimentb", width = 600, height = 300))
       )
       

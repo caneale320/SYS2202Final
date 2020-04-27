@@ -70,6 +70,10 @@ coronavirus_average_sentiment <- cbind(coronavirus_average_sentiment,PublishedTi
 
 coronavirus_average_sentiment$sentiment_averaged <- as.double(coronavirus_average_sentiment$sentiment_averaged)
 
+names(marketwatch_average_sentiment)[1] <- "Key"
+names(marketwatch_average_sentiment)[2] <- "Sentiment Score"
+names(marketwatch_average_sentiment)[3] <- "Publication Date"
+
 
 rlan#head(coronavirus_average_sentiment)
 #tail(coronavirus_average_sentiment)
