@@ -49,7 +49,7 @@ newui <- fluidPage(
                   tabPanel("Comparative", plotOutput("comparativea", width = 600, height = 300),
                            plotOutput("comparativeb", width = 600, height = 300),
                            plotOutput("comparativec", width = 600, height = 300)),
-                  tabPanel("Sentiment", plotOutput("table"))
+                  tabPanel("Sentiment", plotOutput("sentiment", width = 600, height = 300))
       )
       
     )
