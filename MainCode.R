@@ -88,6 +88,12 @@ CleanFinancials <- data.frame(row.names(Financials), Financials$XLF.Adjusted, zs
 CleanEnergy <- data.frame(row.names(Energy), Energy$XLE.Adjusted, zscore(DailyChange$Energy), zscore(DailyRange$Energy), zscore(DailyVolume$Energy))
 CleanIndustrials <- data.frame(row.names(Industrials), Industrials$XLI.Adjusted, zscore(DailyChange$Industrials), zscore(DailyRange$Industrials), zscore(DailyVolume$Industrials))
 
+names(CleanMaterials)[1] <- "Date"
+names(CleanMaterials)[2] <- "Market Close"
+names(CleanMaterials)[3] <- "Normalized Daily Change"
+names(CleanMaterials)[4] <- "Normalized Daily Range"
+names(CleanMaterials)[5] <- "Normalized Daily Volume"
+
 dates <- data.frame(CleanCommunications$row.names.Communications.)
 
 
@@ -116,3 +122,6 @@ USCasesByDay[is.na(USCasesByDay)] <- 0
 USDeathsByDay <- merge(dates, USDeathsByDay, by.x = 1, by.y = 1, all.x = TRUE)
 USDeathsByDay[is.na(USDeathsByDay)] <- 0
 
+names(GlobalCasesByDay)[1] <- "Date"
+names(GlobalCasesByDay)[2] <- "Cummulative Total"
+names(GlobalCasesByDay)[3] <- "Daily Total"
