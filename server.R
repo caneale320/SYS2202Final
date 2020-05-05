@@ -1,3 +1,5 @@
+#Authors: Stuart Keith and Caleb Neale
+
 library(shiny)
 library(ggplot2)
 

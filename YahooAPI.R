@@ -1,5 +1,7 @@
-install.packages("quantmod")
-install.packages("rtsdata")
+#install.packages("quantmod")
+#install.packages("rtsdata")
+
+#Authors Stuart Keith and Caleb Neale
 
 # importing necessary packages for pulling data
 library(quantmod)

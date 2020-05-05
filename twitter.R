@@ -1,3 +1,5 @@
+#Author Steven Pham
+
 #load packages
 library(rtweet) #access tweets
 library(httpuv) #handle http requests within r

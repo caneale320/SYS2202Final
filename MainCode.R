@@ -1,5 +1,7 @@
 #Main 
 
+#Authors: Stuart Keith and Caleb Neale
+
 #install.packages("shiny")
 #Creating working data frame from API
 
@@ -67,14 +69,6 @@ names(DailyVolume)[9] <- "Utilities"
 names(DailyVolume)[10] <- "HealthCare"
 names(DailyVolume)[11] <- "ConsumerDiscretionary"
 
-#Normalizing Daily Change
-NormalizedChange <- zscore(DailyChange)
-
-#Normalizing Daily Range
-NormalizedRange <- zscore(DailyRange)
-
-#Normalizing Daily Volume
-NormalizedVolume <- zscore(DailyVolume)
 
 CleanMaterials <- data.frame(row.names(Materials), Materials$XLB.Adjusted, zscore(DailyChange$Materials), zscore(DailyRange$Materials), zscore(DailyVolume$Materials))
 CleanCommunications <- data.frame(row.names(Communications), Communications$XLC.Adjusted, zscore(DailyChange$Communications), zscore(DailyRange$Communications), zscore(DailyVolume$Communications))
