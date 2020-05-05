@@ -4,6 +4,7 @@ install.packages("RCurl")
 install.packages("dplyr")
 install.packages("shiny")
 
+#Authors: Stuart Keith, Caleb Neale, Steven Pham
 
 # importing necessary packages for pulling data
 library(quantmod)
