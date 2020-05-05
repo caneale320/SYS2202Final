@@ -67,16 +67,13 @@ marketwatch_average_sentiment <- marketwatch_sentiment_scores[,.(sentiment_avera
 marketwatch_average_sentiment <- cbind(marketwatch_average_sentiment,PublishedTime=marketwatch_df$PublishedTime)
 coronavirus_average_sentiment <- cbind(coronavirus_average_sentiment,PublishedTime=coronavirus_df$PublishedTime)
 
-<<<<<<< HEAD
 #head(coronavirus_average_sentiment)
-=======
 coronavirus_average_sentiment$sentiment_averaged <- as.double(coronavirus_average_sentiment$sentiment_averaged)
 
 
 
 
-rlan#head(coronavirus_average_sentiment)
->>>>>>> ba7583271f14916f75915e6e957cf30ce71886b0
+#head(coronavirus_average_sentiment)
 #tail(coronavirus_average_sentiment)
 
 #head(marketwatch_average_sentiment)
