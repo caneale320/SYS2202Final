@@ -19,7 +19,6 @@ library(readr)
 #  consumer_secret = api_scret_key
 #)
 
-
 #search for 16000 tweets using the #coronavirus hashtag in the us
 #usa <- lookup_coords("usa")
 #coronavirus_tweets <- search_tweets(q="coronavirus",n=16000,geocode = usa)
@@ -68,10 +67,7 @@ marketwatch_average_sentiment <- marketwatch_sentiment_scores[,.(sentiment_avera
 marketwatch_average_sentiment <- cbind(marketwatch_average_sentiment,PublishedTime=marketwatch_df$PublishedTime)
 coronavirus_average_sentiment <- cbind(coronavirus_average_sentiment,PublishedTime=coronavirus_df$PublishedTime)
 
-coronavirus_average_sentiment$sentiment_averaged <- as.double(coronavirus_average_sentiment$sentiment_averaged)
-
-
-rlan#head(coronavirus_average_sentiment)
+#head(coronavirus_average_sentiment)
 #tail(coronavirus_average_sentiment)
 
 #head(marketwatch_average_sentiment)
@@ -79,10 +75,9 @@ rlan#head(coronavirus_average_sentiment)
 
 #Plot 
 ggplot(coronavirus_average_sentiment) + 
-  geom_smooth(aes(x=PublishedTime,y=sentiment_averaged), method = "loess")
-
-ggplot(data=marketwatch_average_sentiment, aes(marketwatch_average_sentiment$PublishedTime, marketwatch_average_sentiment$sentiment_averaged)) +
-  geom_smooth(method = "loess")
+  geom_smooth(aes(PublishedTime,sentiment_averaged), method="loess") 
+ ggplot(marketwatch_average_sentiment) + 
+  geom_smooth(aes(PublishedTime,sentiment_averaged), method = "loess")
 
 
 
