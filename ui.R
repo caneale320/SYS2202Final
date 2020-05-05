@@ -11,7 +11,7 @@ newui <- fluidPage(
     # Sidebar panel for inputs ----
     sidebarPanel(
       
-      # Input: Select the random distribution type ----
+      # Input: Buttons for COVID data ----
       radioButtons("covid", "Change in COVID Data:",
                    c("Global Cases" = "GlobalCases",
                      "Global Deaths" = "GlobalDeaths",
@@ -21,7 +21,7 @@ newui <- fluidPage(
       # br() element to introduce extra vertical spacing ----
       br(),
       
-      # Input: Slider for the number of observations to generate ----
+      # Input: Sector Dropdown menu ----
       
       
       selectInput("sector",
